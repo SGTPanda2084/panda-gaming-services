@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import WatchStream from "./WatchStream";
-import Chat from "./Chat";
+import Chat from "./chat.jsx";
 
 function App() {
   // Stream status: live or offline
