@@ -7,12 +7,18 @@
 
 body {
   margin: 0;
+  min-height: 100vh;        /* body at least full screen */
 }
 
 .app {
   min-height: 100vh;
-  padding: 1rem;
+  padding: 2rem;
   background: radial-gradient(circle at top, #1e293b, #020617);
+
+  display: flex;            /* center the content block */
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
 }
 
 /* Top bar */
@@ -53,20 +59,34 @@ body {
 /* Main layout: video left, chat right */
 .main-layout {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1400px;   /* how wide the TV + chat area can grow */
 }
 
 /* Left: video */
 .video-area {
   flex: 2;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Wrapper around your <video> */
 .video-player {
   width: 100%;
-  max-width: 100%;
   border-radius: 0.75rem;
   border: 2px solid #1d4ed8;
   background-color: black;
+
+  /* keep the video a big widescreen box */
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.video-player video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .stream-title {
@@ -79,16 +99,11 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  max-width: 360px;
+  max-width: 420px;        /* a bit wider than before */
   background-color: #020617;
   border-radius: 0.75rem;
   border: 1px solid #1f2937;
-  padding: 0.5rem;
-}
-
-.chat-title {
-  margin: 0 0 0.5rem;
-  font-size: 1rem;
+  padding: 0.75rem;
 }
 
 .chat-box {
@@ -99,10 +114,24 @@ body {
   padding: 0.5rem;
   overflow-y: auto;
   font-size: 0.85rem;
+  min-height: 250px;       /* gives it a nice starting height */
+}
+
+.chat-message {
+  margin: 0.15rem 0;
 }
 
 .chat-message.system {
   color: #9ca3af;
+}
+
+.chat-message.user {
+  color: #e5e7eb;
+}
+
+.chat-author {
+  font-weight: 600;
+  margin-right: 0.25rem;
 }
 
 .chat-input-row {
@@ -131,27 +160,17 @@ body {
 
 /* Mobile: stack video & chat */
 @media (max-width: 768px) {
+  .app {
+    align-items: stretch;
+    padding: 1rem;
+  }
+
   .main-layout {
     flex-direction: column;
+    max-width: 100%;
   }
 
   .chat-area {
     max-width: 100%;
   }
-}
-.chat-message {
-  margin: 0.15rem 0;
-}
-
-.chat-message.system {
-  color: #9ca3af;
-}
-
-.chat-message.user {
-  color: #e5e7eb;
-}
-
-.chat-author {
-  font-weight: 600;
-  margin-right: 0.25rem;
 }
